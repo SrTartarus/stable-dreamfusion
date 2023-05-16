@@ -60,6 +60,9 @@ class StableDiffusion(nn.Module):
 
         # Create model
         pipe = StableDiffusionPipeline.from_pretrained(model_key, torch_dtype=self.precision_t)
+        pipe.load_textual_inversion("/content/learned_embeds.bin", "<hoardz>")
+        
+        print(f'[INFO] concept loaded...')
 
         if vram_O:
             pipe.enable_sequential_cpu_offload()
